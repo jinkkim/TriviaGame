@@ -103,7 +103,15 @@ $(document).ready(function(){
         $("#choice2").html(choice2 [counter]);
         $("#choice3").html(choice3 [counter]);
         $("#choice4").html(choice4 [counter]);
+
+        setInterval(timerStart,1000);
     });
 
 
 })
+
+function timerStart(){
+    $("#timer").text("Time Remaining: " +  countdown + "Seconds");
+    countdown--;
+}
+
