@@ -11,7 +11,7 @@ var questions = [
     "10. Which breed was once known as St. John’s Newfoundland?"
 ];
 
-var choice1 = [
+var choice0 = [
     "A) 24",
     "A) Mouth",
     "A) Husky",
@@ -24,7 +24,7 @@ var choice1 = [
     "A) Newfoundland"
 ];
 
-var choice2 = [
+var choice1 = [
     "B) 38",
     "B) Ears",
     "B) Labrador",
@@ -37,7 +37,7 @@ var choice2 = [
     "B) Golden retriever"
 ];
 
-var choice3 = [
+var choice2 = [
     "C) 42",
     "C) Nose",
     "C) Weimaraner",
@@ -50,7 +50,7 @@ var choice3 = [
     "C) Labrador"
 ];
 
-var choice4 = [
+var choice3 = [
     "D) 32",
     "D) Paws",
     "D) Chow chow",
@@ -64,6 +64,7 @@ var choice4 = [
 ];
 
 var answers = [2, 3, 3, 2, 1, 2, 0, 2, 3, 2];
+//var answers = ["C", "D", "D", "C", "B", "C", "A", "C", "D", "C"];
 
 var imagePath = [
     "q1.jpg",
@@ -98,20 +99,242 @@ $(document).ready(function(){
         countdown = 30;
         counter = 0;
 
-        $("#questions").html(questions[counter]);
-        $("#choice1").html(choice1 [counter]);
-        $("#choice2").html(choice2 [counter]);
-        $("#choice3").html(choice3 [counter]);
-        $("#choice4").html(choice4 [counter]);
-
-        setInterval(timerStart,1000);
+        QnAassign();
+        timerStart();    
     });
 
+
+    // when click choice,
+    $("#choice0").click(function(){
+        if (counter ==10) {
+            clearInterval(x);
+            $("#timer").hide();
+            setTimeout(function(){
+                showScores();
+            }, 4001);
+        }
+        // move to next qeustions
+        showAnswers(); 
+        setTimeout(function(){
+            hideAnswers();
+            QnAassign();
+        }, 4000);
+        countdown = 33;
+        
+        // check the answer is correct or not
+        var clickedKey = 0;
+        compareAnswers(clickedKey);
+
+        counter ++;
+        
+    })
+
+
+    $("#choice1").click(function(){
+        if (counter ==10) {
+            clearInterval(x);
+            $("#timer").hide();
+            setTimeout(function(){
+                showScores();
+            }, 4001);
+        }
+
+         // move to next qeustions
+        showAnswers(); 
+        setTimeout(function(){
+            hideAnswers();
+            QnAassign();
+        }, 4000);
+        countdown = 33;
+ 
+        // check the answer is correct or not
+        var clickedKey = 1;
+        compareAnswers(clickedKey);
+
+        counter ++;
+        
+    })
+
+
+    $("#choice2").click(function(){
+        if (counter ==10) {
+            clearInterval(x);
+            $("#timer").hide();
+            setTimeout(function(){
+                showScores();
+            }, 4001);
+        }
+
+        // move to next qeustions
+        showAnswers(); 
+        setTimeout(function(){
+            hideAnswers();
+            QnAassign();
+        }, 4000);
+        countdown = 33;
+        
+        // check the answer is correct or not
+        var clickedKey = 2;
+        compareAnswers(clickedKey);
+
+        counter ++; 
+        
+    })
+
+
+    $("#choice3").click(function(){
+        if (counter ==10) {
+            clearInterval(x);
+            $("#timer").hide();
+            setTimeout(function(){
+                showScores();
+            }, 4001);
+        }
+        
+        // move to next qeustions
+        showAnswers(); 
+        setTimeout(function(){
+            hideAnswers();
+            QnAassign();
+        }, 4000);
+        countdown = 33;
+  
+        // check the answer is correct or not
+        var clickedKey = 3;
+        compareAnswers(clickedKey);
+
+        counter ++;
+    })
+
+
+    //highlight effects by mouse pointer
+    $("#choice0").mouseover(function(){
+        $(this).addClass('hover');
+    })
+
+    $("#choice0").mouseout(function(){
+        $(this).removeClass('hover');
+    })
+
+
+
+    $("#choice1").mouseover(function(){
+        $(this).addClass('hover');
+    })
+
+    $("#choice1").mouseout(function(){
+        $(this).removeClass('hover');
+    })
+
+
+    $("#choice2").mouseover(function(){
+        $(this).addClass('hover');
+    })
+
+    $("#choice2").mouseout(function(){
+        $(this).removeClass('hover');
+    })
+
+
+    $("#choice3").mouseover(function(){
+        $(this).addClass('hover');
+    })
+
+    $("#choice3").mouseout(function(){
+        $(this).removeClass('hover');
+    })
 
 })
 
 function timerStart(){
-    $("#timer").text("Time Remaining: " +  countdown + "Seconds");
-    countdown--;
+    x = setInterval(function(){
+        
+        if (counter ==10) {
+            clearInterval(x);
+            $("#timer").hide();
+            setTimeout(function(){
+                showScores();
+            }, 4001);
+        }
+
+        $("#timer").text("Time Remaining: " +  countdown + " Seconds");
+    
+        if (countdown == 0) {
+
+            showAnswers(); 
+            setTimeout(function(){
+                hideAnswers();
+                QnAassign();
+            }, 2000);
+            countdown = 31;
+            unansweredScores ++;
+            counter ++; 
+            console.log("correctScores: "+ correctScores)
+            console.log("incorrectScores: "+ incorrectScores)
+            console.log("unanswered: "+ unansweredScores)            
+        }
+        countdown --;
+    }, 1000);
+}
+//showing correct answers
+function showAnswers(){
+    $("#choice0").hide();
+    $("#choice1").hide();
+    $("#choice2").hide();
+    $("#choice3").hide();
+    var temp_string = "choice"+ answers[counter] + "[" + counter + "]"; 
+    var temp_answer = eval(temp_string);
+    $("#correctAnswer").html("Correct answer is " + temp_answer);
+    $("#correctAnswerImg").html("<img src='assets/images/"+ imagePath[counter]  +"' width='260' height='193'>");
+    $("#correctAnswer").show();
+    $("#correctAnswerImg").show();
+    $("#timer").hide();
 }
 
+//hiding correct answers
+function hideAnswers(){
+    $("#choice0").show();
+    $("#choice1").show();
+    $("#choice2").show();
+    $("#choice3").show();
+    $("#correctAnswer").hide();
+    $("#correctAnswerImg").hide();
+    $("#timer").show();
+}
+
+// assign question and choices
+function QnAassign(){
+    $("#questions").html(questions[counter]);
+    $("#choice0").html(choice0 [counter]);
+    $("#choice1").html(choice1 [counter]);
+    $("#choice2").html(choice2 [counter]);
+    $("#choice3").html(choice3 [counter]);
+}
+
+function showScores() {
+    $("#start").text("start over");
+    $("#start").show();
+    $("#questions").text("All done! Here is your scores.");
+    $("#choice0").text("Correct Score:" + correctScores);
+    $("#choice1").text("Incorrect Scores:" + incorrectScores);
+    $("#choice2").text("Unanswered: " + unansweredScores);
+    $("#choice3").text("Answered: " + (10-unansweredScores));
+}
+
+function compareAnswers(clickedKey){
+    if (clickedKey == answers[counter]){
+        $("#questions").text("Correct!");
+        correctScores++;
+        $("#correctAnswer").html("");
+        console.log("correctScores: "+ correctScores)
+        console.log("incorrectScores: "+ incorrectScores)
+        console.log("unanswered: "+ unansweredScores)
+    } else {
+        incorrectScores++;
+        $("#questions").text("Nope!");
+        console.log("correctScores: "+ correctScores)
+        console.log("incorrectScores: "+ incorrectScores)
+        console.log("unanswered: "+ unansweredScores)
+    }
+
+}
